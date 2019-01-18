@@ -2,7 +2,6 @@ let mongoose = require('mongoose');
 
 mongoose.connection.on("open", function () {
     console.log("Connected to mongo server");
-    
 });
 
 mongoose.connection.on("error", function (err) {
@@ -10,13 +9,21 @@ mongoose.connection.on("error", function (err) {
     return console.log(err);
 });
 
-mongoURI = 'mongodb://localhost:27017/api-well-insight';    
+mongoURI = 'mongodb://localhost:27017/todo_app';
 
 mongoose.connect(mongoURI);
 
 module.exports = mongoose;
 
+// var MongoClient = require('mongodb').MongoClient;
+// var url = "mongodb://localhost:27017/todo_app";
 
+// MongoClient.connect(url, function(err, db) {
+//   if (err) throw err;
+//   console.log("Database created!");
+//   db.close();
+// });
+// module.exports = MongoClient;
 // var Sequelize = require('sequelize');
 // var configDb = require('config').get('db');
 
