@@ -1,21 +1,39 @@
-'use strict';
-var Sequelize = require('sequelize');
-var configDb = require('config').get('db');
+let mongoose = require('mongoose');
 
-var sequelize = new Sequelize(configDb.db_name, configDb.user, configDb.password, configDb.options);
-var Op = Sequelize.Op;
-var db = {};
+mongoose.connection.on("open", function () {
+    console.log("Connected to mongo server");
+    
+});
 
-db.Todo = require('./schemas/todo.js').define(sequelize, Sequelize);
+mongoose.connection.on("error", function (err) {
+    console.log("Could not connect to mongo server!");
+    return console.log(err);
+});
 
-sequelize.sync().then(()=>{
-    console.log('\n============================ SYNC DATABASE SUCCESS ====================\n');
-}).catch(err=>{
-    console.log('\n============================ SYNC DATABASE ERROR ======================\n', err);
-})
+mongoURI = 'mongodb://localhost:27017/api-well-insight';    
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
-db.Op = Op;
+mongoose.connect(mongoURI);
 
-module.exports = db;
+module.exports = mongoose;
+
+
+// var Sequelize = require('sequelize');
+// var configDb = require('config').get('db');
+
+// var sequelize = new Sequelize(configDb.db_name, configDb.user, configDb.password, configDb.options);
+// var Op = Sequelize.Op;
+// var db = {};
+
+// db.Todo = require('./schemas/todo.js').define(sequelize, Sequelize);
+
+// sequelize.sync().then(()=>{
+//     console.log('\n============================ SYNC DATABASE SUCCESS ====================\n');
+// }).catch(err=>{
+//     console.log('\n============================ SYNC DATABASE ERROR ======================\n', err);
+// })
+
+// db.sequelize = sequelize;
+// db.Sequelize = Sequelize;
+// db.Op = Op;
+
+// module.exports = db;
